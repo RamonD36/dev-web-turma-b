@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
 import HomeComponent from "./components/HomeComponent.vue";
 
 export default {
@@ -14,10 +13,17 @@ export default {
   components: {
     HomeComponent,
   },
-  data() {
-    return {};
+  created() {
+    console.log("Created");
+  },
+  mounted() {
+    console.log("Mounted");
+  },
+  errorCaptured() {
+    console.log("errorCaptured");
   },
 };
+
 </script>
 
 <style>

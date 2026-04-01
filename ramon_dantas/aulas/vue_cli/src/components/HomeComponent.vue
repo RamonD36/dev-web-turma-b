@@ -1,28 +1,18 @@
 <template>
   <div>
     <footer>
-        <p>Bem Vindo! {{ nome }} Olá Mundo do Vue</p>
+      <p>Bem Vindo! De novo {{ nome }} Olá mundo do <b>Vue com CLI</b></p>
     </footer>
   </div>
 </template>
 
-
-
 <script>
-
-    export default {
-        name: 'HomeComponent',
-        data() {
-            return {
-                nome: 'Ramon'
-            }
-        },
-
-        components: {
-        }
-
-    }
+export default {
+  name: "HomeComponent",
+  data() {
+    return {
+      nome: "Ramon",
+    };
+  },
+};
 </script>
-
-<style>
-</style>
