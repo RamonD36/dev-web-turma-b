@@ -4,9 +4,13 @@
     <h1>Meu Primeiro APP Vue</h1>
     <HomeComponent />
     <hr>
-    <UsuarioComponent />
+    <UsuarioComponent v-show="componentUsuarioVisivel" />
     <hr>
     <EstiloComponente />
+    <hr>
+    <ImagemComponent 
+    @visibilidadeImg="escutarVisibilidadeImagem"
+    :urlImagem="'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/masterpieces/gallardo-lp-550-2-2/Gallardo%20LP%20550-2-HEADER.jpg'"/>
   </div>
 </template>
 
@@ -14,6 +18,7 @@
 import HomeComponent from "./components/HomeComponent.vue";
 import UsuarioComponent from "./components/UsuarioComponent.vue";
 import EstiloComponente from "./components/EstiloComponente.vue";
+import ImagemComponent from "./components/ImagemComponent.vue";
 
 export default {
   name: "App",
@@ -21,7 +26,19 @@ export default {
     HomeComponent,
     UsuarioComponent,
     EstiloComponente,
+    ImagemComponent,
   },
+  data() {
+    return {
+      componentUsuarioVisivel: true,
+    }
+  },
+  methods: {
+    escutarVisibilidadeImagem(isImgInvisivel) {
+      this.componentUsuarioVisivel = !isImgInvisivel;
+    }
+  },
+
   created() {
     console.log("Created");
   },
