@@ -3,13 +3,13 @@
     <div class="section-1">
       <h1>Tarefas</h1>
       <div class="input-group">
-        <input class="input-task" type="text" />
-        <button class="btn-add-task"><i class="fa-solid fa-plus"></i></button>
+        <input class="input-task" type="text" v-model="newTask" placeholder="Nova tarefa..." />
+        <button class="btn-add-task" @click="addTask"><i class="fa-solid fa-plus"></i></button>
       </div>
     </div>
     <ul class="section-2">
-      <li v-for="task in tasks" :key="">
-        
+      <li v-for="(task, index) in tasks" :key="task.id" class="task-item">
+        <TaskComponent :task="task" @remove="removeTask(index)" />
       </li>
     </ul>
   </div>
@@ -18,15 +18,41 @@
 <script>
 import { ref } from "vue";
 import TaskComponent from "./components/TaskComponent.vue";
-const tasks = ref([
-  <TaskComponent />
-])
-
 
 export default {
   name: "App",
   components: {
     TaskComponent,
+  },
+
+  setup() {
+    const tasks = ref([]);
+    const newTask = ref("");
+
+    // Adiciona tarefa
+    const addTask = () => {
+      if (newTask.value.trim() !== "") {
+        tasks.value.push({
+          // Cria um id para saber qual remover
+          id: Date.now(),
+          description: newTask.value
+        });
+        //limpa o imput
+        newTask.value = "";
+      }
+    };
+
+    // Remove
+    const removeTask = (index) => {
+      tasks.value.splice(index, 1);
+    };
+
+    return {
+      tasks,
+      newTask,
+      addTask,
+      removeTask
+    };
   },
 };
 </script>
@@ -43,7 +69,13 @@ export default {
 }
 
 .section-2 {
-    margin: 1em 25%;
+  margin: 1em 25%;
+  padding: 0;
+}
+
+.task-item {
+  list-style-type: none;
+  margin-bottom: 0.5em;
 }
 
 .section-1 h1 {
@@ -59,12 +91,13 @@ export default {
 
 .input-task {
   font-size: 1em;
-  padding: 0.5em 0.7em 0.5em 0.7em;
+  padding: 0.5em 0.7em;
   flex: 1;
   margin-right: 0.5em;
   border: solid 2px #2c3e50;
   border-radius: 50vh;
 }
+
 .btn-add-task {
   color: azure;
   background-color: #1ca046;
@@ -74,6 +107,7 @@ export default {
   padding: 0.5em;
   border: none;
   border-radius: 50vh;
+  cursor: pointer;
 }
 
 #app {

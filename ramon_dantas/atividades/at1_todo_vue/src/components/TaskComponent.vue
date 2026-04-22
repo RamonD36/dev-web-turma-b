@@ -1,29 +1,34 @@
 <template>
-    <div @click="markCompleted" class="task" :class="{'task-complete' : isComplete}">
-        <p>{{ taskDescripton }}</p>
-        <button><i class="fa-solid fa-xmark"></i></button>
+    <div @click="toggleComplete" class="task" :class="{ 'task-complete' : isComplete }">
+        <p>{{ task.description }}</p>
+        <button @click.stop="$emit('remove')"><i class="fa-solid fa-xmark"></i></button>
     </div>
 </template>
 
 <script>
 export default {
     name: "TaskComponent",
+    props: {
+        task: {
+            type: Object,
+            required: true
+        }
+    },
+    
     data() {
         return {
-            taskDescripton: "Descrição da tarefa",
-            isComplete: false,
+            isComplete: false
         };
     },
 
     methods: {
-        markCompleted() {
+        toggleComplete() {
             this.isComplete = !this.isComplete;
-}
-
+        }
     },
+    
+    emits: ['remove']
 };
-
-
 </script>
 
 <style>
@@ -54,5 +59,6 @@ export default {
     height: 2em;
     border: none;
     border-radius: 5vh;
+    cursor: pointer;
 }
 </style>
